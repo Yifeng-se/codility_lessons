@@ -1,22 +1,19 @@
-import java.util.Arrays;
-import java.util.List;
-import java.util.ArrayList;
-
 /**
  * Solution
  */ 
 class Solution {
     public int solution(int N) {
         String sBinStr = Integer.toBinaryString(N);
-        List<String> parts = new ArrayList<String>(Arrays.asList(sBinStr.split("1")));
-
-        if (sBinStr.charAt(sBinStr.length() - 1) == '0' && parts.size() > 0) {
-            parts.remove( parts.size() - 1 );
+        int iReturn = 0, iCurr = 0;
+        for (char c : sBinStr.toCharArray()) {
+            if (c == '1') {
+                iReturn = Math.max(iReturn, iCurr);
+                iCurr = 0;
+            } else {
+                iCurr += 1;
+            }
         }
-
-        return parts.stream()
-            .mapToInt( s -> s.length())
-            .max().orElse(0);
+        return iReturn;
     }
 }
 public class BinaryGap {
